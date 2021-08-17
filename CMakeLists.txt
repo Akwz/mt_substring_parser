@@ -5,10 +5,15 @@ set(CMAKE_CXX_STANDARD 14)
 
 project(substring_parser)
 
-include_directories(./)
+include_directories(
+./
+data/
+)
 
 set(SOURCES
 main.cpp
+data/data_unit.cpp
+data/shared_storage.cpp
 )
 
 add_executable(substring_parser ${SOURCES})
