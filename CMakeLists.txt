@@ -17,6 +17,7 @@ main.cpp
 activity/activity.cpp
 activity/activity_manager.cpp
 activity/workers/worker_pool.cpp
+activity/workers/task_queue.cpp
 )
 
 add_executable(substring_parser ${SOURCES})

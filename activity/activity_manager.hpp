@@ -8,7 +8,7 @@
 #include "activity.hpp"
 #include "composite_activity.hpp"
 
-namespace parser
+namespace activity
 {
 
 class ActivityManager
@@ -29,4 +29,4 @@ private:
 	// std::queue<Activity> mQueue;
 };
 
-} // namespace parser
+} // namespace activity
