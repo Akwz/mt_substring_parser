@@ -1,8 +1,10 @@
 #include <iostream>
-#include "activity_dispatcher.hpp"
+#include <memory>
+
 
 int main(int argc, char** argv)
 {
+
 	std::cout << "Done" << std::endl;
 	return 0;
 }

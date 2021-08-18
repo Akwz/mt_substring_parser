@@ -1,6 +1,6 @@
 #include "activity.hpp"
 
-namespace activity
+namespace parser
 {
 
-} // namespace activity
+} // namespace parser

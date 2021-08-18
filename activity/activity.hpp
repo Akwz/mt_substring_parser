@@ -1,6 +1,6 @@
 #pragma once
 
-namespace activity
+namespace parser
 {
 
 class Activity
@@ -11,4 +11,4 @@ private:
 
 };
 
-} // namespace activity
+} // namespace parser

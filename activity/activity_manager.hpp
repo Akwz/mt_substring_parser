@@ -1,18 +1,32 @@
 #pragma once
 
-// #include "data_unit.hpp"
-#include "activity_dispatcher.hpp"
+#include <vector>
+#include <thread>
+#include <queue>
+#include <memory>
 
-namespace activity
+#include "activity.hpp"
+#include "composite_activity.hpp"
+
+namespace parser
 {
 
-class IActivityManager
+class ActivityManager
 {
 public:
-	virtual void Process(/* DataUnit& input, DataUnit& output */) = 0;
+	static ActivityManager& Instance();
 
 private:
+	ActivityManager() = delete;
+	ActivityManager(const ActivityManager&) = delete;
+	ActivityManager& operator=(const ActivityManager&) = delete;
 
+	static void Init(size_t pool_size);
+
+	static std::unique_ptr<ActivityManager> mInstance;
+
+	std::vector<std::thread> mThreadPool;
+	// std::queue<Activity> mQueue;
 };
 
-} // namespace activity
+} // namespace parser

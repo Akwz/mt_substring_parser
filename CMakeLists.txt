@@ -7,14 +7,16 @@ project(substring_parser)
 
 include_directories(
 ./
+utils/
 activity/
+activity/workers
 )
 
 set(SOURCES
 main.cpp
 activity/activity.cpp
-activity/activity_dispatcher.cpp
 activity/activity_manager.cpp
+activity/workers/worker_pool.cpp
 )
 
 add_executable(substring_parser ${SOURCES})
