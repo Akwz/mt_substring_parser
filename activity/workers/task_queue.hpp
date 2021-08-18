@@ -13,7 +13,7 @@ class TaskQueue
 {
 public:
 	void Push(std::function<void()>&& task);
-	void Fetch(std::unique_ptr<std::function<void()>> container);
+	std::unique_ptr<std::function<void()>> Fetch();
 private:
 	std::mutex mQueueMutex;
 	std::queue<std::function<void()>> mQueue;
