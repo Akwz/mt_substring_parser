@@ -1,14 +1,17 @@
 #pragma once
 
+#include <functional>
+#include <vector>
+
 namespace activity
 {
 
-class Activity
+class ActivityResult{};
+
+struct Activity
 {
-public:
-
-private:
-
+	std::vector<std::function<void()>> tasks;
+	ActivityResult result;
 };
 
 } // namespace activity

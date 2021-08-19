@@ -6,23 +6,19 @@
 namespace worker
 {
 
-void TaskQueue::Push(std::function<void()>&& task)
+void TaskQueue::Push(std::function<void()>& task)
 {
 	std::lock_guard<std::mutex> lg(mQueueMutex);
 	mQueue.emplace(task);
 }
 
-std::unique_ptr<std::function<void()>> TaskQueue::Fetch()
+void TaskQueue::Push(const std::vector<std::function<void()>>& tasks)
 {
-	std::unique_ptr<std::function<void()>> result{nullptr};
 	std::lock_guard<std::mutex> lg(mQueueMutex);
-	if(!mQueue.empty())
+	for(const auto& task : tasks)
 	{
-		auto value = mQueue.front();
-		result = std::make_unique<std::function<void()>>(value);
-		mQueue.pop();
+		mQueue.emplace(task);
 	}
-	return result;
 }
 
 } // namespace worker

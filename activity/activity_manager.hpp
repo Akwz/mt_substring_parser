@@ -5,6 +5,8 @@
 #include <queue>
 #include <memory>
 
+#include "task_queue.hpp"
+#include "worker_pool.hpp"
 #include "activity.hpp"
 #include "composite_activity.hpp"
 
@@ -14,19 +16,19 @@ namespace activity
 class ActivityManager
 {
 public:
-	static ActivityManager& Instance();
-
+	static std::shared_ptr<ActivityManager> Instance();
+	void Process(Activity& activity);
 private:
-	ActivityManager() = delete;
+	ActivityManager();
 	ActivityManager(const ActivityManager&) = delete;
 	ActivityManager& operator=(const ActivityManager&) = delete;
 
-	static void Init(size_t pool_size);
+	static void Init();
 
-	static std::unique_ptr<ActivityManager> mInstance;
+	static std::shared_ptr<ActivityManager> mInstance;
 
-	std::vector<std::thread> mThreadPool;
-	// std::queue<Activity> mQueue;
+	std::shared_ptr<worker::TaskQueue> mTasks;
+	worker::WorkerPool mWorkers;
 };
 
 } // namespace activity
