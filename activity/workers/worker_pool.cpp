@@ -29,13 +29,15 @@ void WorkerPool::Init()
 	const size_t workers_count = std::thread::hardware_concurrency();
 	for(size_t i = 0; i < (workers_count ? workers_count : DEFAULT_WORKERS_COUNT); ++i)
 	{
-		auto worker_task = [&flag = mDone](size_t id){
+		auto worker_task = [&flag = mDone, tasks = mTasks](size_t id){
 			while(!flag)
 			{
-				std::this_thread::sleep_for(std::chrono::seconds(2));
-				std::cout << "Thread Executes: " << id << std::endl;
+				std::function<void()> func;
+				if(tasks->Fetch(func))
+				{
+					func();
+				}
 			}
-			std::cout << "Thread finished: " << id << std::endl;
 		};
 		mWorkers.emplace_back(std::thread(worker_task, i));
 	}

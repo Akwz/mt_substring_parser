@@ -45,12 +45,9 @@ public:
 			{
 				auto res = future.get();
 				result_container.Merge(res);
-
 			}
-			{
-				processed = true;
-				cv.notify_one();
-			}
+			processed = true;
+			cv.notify_one();
 		});
 		pool_tasks.emplace_back(result_extraction);
 

@@ -25,7 +25,7 @@ public:
 		if(!mQueue.empty())
 		{
 			auto value = mQueue.front();
-			container.store(std::move(value));
+			container = std::move(value);
 			mQueue.pop();
 			return true;
 		}

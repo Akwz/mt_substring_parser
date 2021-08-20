@@ -10,9 +10,19 @@
 int main(int argc, char** argv)
 {
 	auto am = activity::ActivityManager::Instance();
-	activity::Activity<data::ResultContainer> act;
-	am->Process<data::ResultContainer>(act);
 
-	std::cout << "Done" << std::endl;
+	using retT = data::ResultContainer<int>;
+
+	activity::Activity<retT> act;
+	for(size_t i = 0; i < 5; ++i)
+	{
+		act.tasks.emplace_back(std::function<retT()>([i]() -> retT {
+			return retT(i);
+		}));
+	}
+
+	am->Process<retT>(act);
+
+	std::cout << "Done :" << act.result.Value() << std::endl;
 	return 0;
 }
