@@ -12,17 +12,18 @@ int main(int argc, char** argv)
 	auto am = activity::ActivityManager::Instance();
 
 	using retT = data::ResultContainer<int>;
-
+	size_t ress = 0;
 	activity::Activity<retT> act;
-	for(size_t i = 0; i < 5; ++i)
+	for(size_t i = 0; i < 10000; ++i)
 	{
 		act.tasks.emplace_back(std::function<retT()>([i]() -> retT {
 			return retT(i);
 		}));
+		ress += i;
 	}
 
 	am->Process<retT>(act);
 
-	std::cout << "Done :" << act.result.Value() << std::endl;
+	std::cout << "Done :" << act.result.Value() << " " << ress << std::endl;
 	return 0;
 }

@@ -9,11 +9,14 @@ class ResultContainer
 public:
 	ResultContainer() : mValue() {}
 	ResultContainer(const T& value) : mValue(value){}
-	void Merge(const ResultContainer& other){ mValue += other.Value();}
+	void Merge(const ResultContainer& other){}
 	T Value() const {return mValue;}
 
 private:
 	T mValue;
 };
+
+template<>
+void ResultContainer<int>::Merge(const ResultContainer<int>& other);
 
 } // namespace data
