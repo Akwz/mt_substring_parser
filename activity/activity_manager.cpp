@@ -23,9 +23,4 @@ void ActivityManager::Init()
 	mInstance = std::shared_ptr<ActivityManager>(new ActivityManager);
 }
 
-void ActivityManager::Process(Activity& activity)
-{
-	mTasks->Push(activity.tasks);
-}
-
 } // namespace activity

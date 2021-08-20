@@ -6,12 +6,13 @@
 namespace activity
 {
 
-class ActivityResult{};
+// class ActivityResult{};
 
+template<typename ResultType>
 struct Activity
 {
-	std::vector<std::function<void()>> tasks;
-	ActivityResult result;
+	std::vector<std::function<ResultType()>> tasks;
+	ResultType result;
 };
 
 } // namespace activity

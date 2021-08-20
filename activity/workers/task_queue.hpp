@@ -16,7 +16,7 @@ public:
 	TaskQueue() = default;
 
 	void Push(std::function<void()>& task);
-	void Push(const std::vector<std::function<void()>>& tasks);
+	void Push(std::vector<std::function<void()>>&& tasks);
 
 	template<typename ContainerType>
 	bool Fetch(ContainerType& container)

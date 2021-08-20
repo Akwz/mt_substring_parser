@@ -12,7 +12,7 @@ void TaskQueue::Push(std::function<void()>& task)
 	mQueue.emplace(task);
 }
 
-void TaskQueue::Push(const std::vector<std::function<void()>>& tasks)
+void TaskQueue::Push(std::vector<std::function<void()>>&& tasks)
 {
 	std::lock_guard<std::mutex> lg(mQueueMutex);
 	for(const auto& task : tasks)
