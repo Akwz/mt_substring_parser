@@ -18,13 +18,12 @@ data/
 
 set(SOURCES
 main.cpp
-data/data_unit.cpp
 data/shared_storage.cpp
+data/result_container.cpp
 activity/activity.cpp
 activity/activity_manager.cpp
 activity/workers/worker_pool.cpp
 activity/workers/task_queue.cpp
-data/result_container.cpp
 )
 
 add_executable(substring_parser ${SOURCES})
