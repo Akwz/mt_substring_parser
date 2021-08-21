@@ -11,10 +11,10 @@ int main(int argc, char** argv)
 {
 	auto am = activity::ActivityManager::Instance();
 
-	using retT = data::ResultContainer<int>;
+	using retT = data::ResultContainer<size_t>;
 	size_t ress = 0;
 	activity::Activity<retT> act;
-	for(size_t i = 0; i < 10000; ++i)
+	for(size_t i = 0; i < 100000; ++i)
 	{
 		act.tasks.emplace_back(std::function<retT()>([i]() -> retT {
 			return retT(i);

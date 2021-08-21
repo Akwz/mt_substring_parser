@@ -17,6 +17,6 @@ private:
 };
 
 template<>
-void ResultContainer<int>::Merge(const ResultContainer<int>& other);
+void ResultContainer<size_t>::Merge(const ResultContainer<size_t>& other);
 
 } // namespace data
