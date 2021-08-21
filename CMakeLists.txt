@@ -14,6 +14,7 @@ utils/
 activity/
 activity/workers
 data/
+text_processing/
 )
 
 set(SOURCES
@@ -24,6 +25,8 @@ activity/activity.cpp
 activity/activity_manager.cpp
 activity/workers/worker_pool.cpp
 activity/workers/task_queue.cpp
+text_processing/text_storage.cpp
+text_processing/text_provider.cpp
 )
 
 add_executable(substring_parser ${SOURCES})

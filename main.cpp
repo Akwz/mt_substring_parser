@@ -1,10 +1,13 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include <fstream>
+#include <vector>
 
 #include "worker_pool.hpp"
 #include "activity_manager.hpp"
 #include "result_container.hpp"
+#include "text_storage.hpp"
 
 
 int main(int argc, char** argv)

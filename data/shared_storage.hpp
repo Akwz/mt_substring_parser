@@ -27,7 +27,7 @@ template<typename StorageType, typename ProviderType, template<typename> class V
 class SharedStorage
 {
 public:
-	SharedStorage(ProviderType& data_provider, SharedStorageOptions options) : mDataProvider(data_provider), mOptions(options) {}
+	SharedStorage(ProviderType&& data_provider, const SharedStorageOptions& options) : mDataProvider(data_provider), mOptions(options) {}
 	const ViewType<typename StorageType::IteratorType> TryGetNextData()
 	{
 		ViewType<typename StorageType::IteratorType> result;
