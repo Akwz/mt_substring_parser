@@ -1,32 +1,14 @@
 #include <iostream>
-#include <thread>
-#include <chrono>
-#include <fstream>
-#include <vector>
 
-#include "worker_pool.hpp"
-#include "activity_manager.hpp"
-#include "result_container.hpp"
-#include "text_storage.hpp"
+#include "text_processor.hpp"
 
 
 int main(int argc, char** argv)
 {
-	auto am = activity::ActivityManager::Instance();
+	const std::string fname("../tmp_file");
+	text_processing::TextProcessor processor{fname, "sa?"};
+	auto result = processor.Process();
 
-	using retT = data::ResultContainer<size_t>;
-	size_t ress = 0;
-	activity::Activity<retT> act;
-	for(size_t i = 0; i < 100000; ++i)
-	{
-		act.tasks.emplace_back(std::function<retT()>([i]() -> retT {
-			return retT(i);
-		}));
-		ress += i;
-	}
-
-	am->Process<retT>(act);
-
-	std::cout << "Done :" << act.result.Value() << " " << ress << std::endl;
+	std::cout << "Done: " << result.mLayers[0].size() << std::endl;
 	return 0;
 }

@@ -19,6 +19,8 @@ class WorkerPool
 public:
 	WorkerPool(std::shared_ptr<TaskQueue> queue);
 	~WorkerPool();
+
+	size_t SuitableCount() {return mWorkers.size();}
 private:
 	WorkerPool(const WorkerPool&) = delete;
 	WorkerPool& operator=(const WorkerPool&) = delete;

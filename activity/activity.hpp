@@ -6,8 +6,6 @@
 namespace activity
 {
 
-// class ActivityResult{};
-
 template<typename ResultType>
 struct Activity
 {

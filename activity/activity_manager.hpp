@@ -7,6 +7,7 @@
 #include <future>
 #include <functional>
 #include <condition_variable>
+#include <iostream>
 
 #include "task_queue.hpp"
 #include "worker_pool.hpp"
@@ -39,26 +40,30 @@ public:
 		}
 
 		std::condition_variable cv;
-		std::atomic<bool> processed{false};
-		auto result_extraction = std::function<void()>([&cv, &processed, &result_futures, &result_container = activity.result]() mutable {
+		std::mutex m;
+		bool processed{false};
+		auto result_extraction = std::function<void()>([&m, &cv, &processed, &result_futures, &result_container = activity.result]() mutable {
 			for(auto& future : result_futures)
 			{
 				auto res = future.get();
 				result_container.Merge(res);
 			}
-			processed = true;
+			{
+				std::lock_guard<std::mutex> lg(m);
+				processed = true;
+			}
 			cv.notify_one();
 		});
 		pool_tasks.emplace_back(result_extraction);
-
 		mTasks->Push(std::move(pool_tasks));
 
 		{
-			std::mutex m;
 			std::unique_lock<std::mutex> ul(m);
-			cv.wait(ul, [&processed](){return processed == true;});
+			cv.wait(ul, [&processed](){return processed;});
 		}
 	}
+
+	size_t SuitableTaskCount() {return mWorkers.SuitableCount() - 1;}
 private:
 	ActivityManager();
 	ActivityManager(const ActivityManager&) = delete;

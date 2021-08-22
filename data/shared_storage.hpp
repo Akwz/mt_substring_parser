@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <mutex>
+#include <tuple>
 
 
 namespace data
@@ -23,22 +24,27 @@ struct SharedStorageOptions
 	int64_t mDataViewSize{256};
 };
 
-template<typename StorageType, typename ProviderType, template<typename> class ViewType>
+template<typename StorageType, typename ProviderType, typename ViewType>
 class SharedStorage
 {
 public:
-	SharedStorage(ProviderType&& data_provider, const SharedStorageOptions& options) : mDataProvider(data_provider), mOptions(options) {}
-	const ViewType<typename StorageType::IteratorType> TryGetNextData()
+	SharedStorage(ProviderType&& data_provider, const SharedStorageOptions& options) : mDataProvider{std::move(data_provider)}, mOptions{options}, mExtractedDataCounter{0} {}
+	const std::tuple<ViewType, size_t> TryGetNextData()
 	{
-		ViewType<typename StorageType::IteratorType> result;
+		ViewType result;
 		std::lock_guard<std::mutex> lg(mStorageMutex);
 		if(TryUpdateStorageIterators())
 		{
-			const size_t move_distance = std::max(std::min(mStorageEnd - mCurrentPosition, mOptions.mDataViewSize), 0);
-			result = ViewType<typename StorageType::IteratorType>(mCurrentPosition, mCurrentPosition + move_distance);
+			const size_t move_distance = std::max<size_t>(std::min<size_t>(mStorageEnd - mCurrentPosition, mOptions.mDataViewSize), 0);
+			result = ViewType(mCurrentPosition, mCurrentPosition + move_distance);
 			MoveStorageIterators();
 		}
-		return result;
+		return std::make_tuple<ViewType, size_t>(std::move(result), ExtractedDataOrderId());
+	}
+
+	size_t ExtractedDataOrderId() const
+	{
+		return mExtractedDataCounter;
 	}
 
 private:
@@ -55,7 +61,7 @@ private:
 		return IsStorageIteratorsValid();
 	}
 
-	void TryFetchDataFromProvider();
+	void TryFetchDataFromProvider()
 	{
 		mStorage.Clear();
 		mStorage.Aquire(mDataProvider.Fetch());
@@ -73,17 +79,14 @@ private:
 
 	void MoveStorageIterators()
 	{
-		if(mCurrentPosition && mCurrentPosition != mStorageEnd)
-		{
-			const size_t move_distance = std::max(std::min(mStorageEnd - mCurrentPosition, mOptions.mDataViewSize - mOptions.mDataViewLayering), 0);
-			mCurrentPosition += move_distance;
-		}
+		const size_t move_distance = std::max<size_t>(std::min<size_t>(mStorageEnd - mCurrentPosition, mOptions.mDataViewSize - mOptions.mDataViewLayering), 0);
+		mCurrentPosition += move_distance;
+		++mExtractedDataCounter;
 	}
 
 	bool IsStorageIteratorsValid()
 	{
-		if(!mCurrentPosition || (mCurrentPosition == mStorageEnd)) return false;
-		return true;
+		return mCurrentPosition != mStorageEnd;
 	}
 
 	StorageType mStorage;
@@ -93,6 +96,7 @@ private:
 	std::mutex mStorageMutex;
 	ProviderType mDataProvider;
 	SharedStorageOptions mOptions;
+	size_t mExtractedDataCounter;
 };
 
 } // data
