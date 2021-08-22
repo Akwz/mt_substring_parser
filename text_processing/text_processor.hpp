@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "shared_storage.hpp"
 #include "text_storage.hpp"
@@ -22,7 +23,7 @@ public:
 private:
 	ParsingResult ProcessFrame(const TextDataView& frame);
 
-	data::SharedStorage<TextStorage, TextProvider, TextDataView>  mDataStorage;
+	data::SharedStorage<TextStorage, TextProvider, std::string>  mDataStorage;
 	std::shared_ptr<activity::ActivityManager> mActivityManager;
 	std::string mMask;
 };

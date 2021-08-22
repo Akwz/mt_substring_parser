@@ -10,7 +10,7 @@ class TextDataView
 	using IteratorType = std::string::const_iterator;
 public:
 	TextDataView();
-	TextDataView(const IteratorType& begin, const IteratorType& end);
+	explicit TextDataView(const IteratorType& begin, const IteratorType& end);
 	bool Empty() const;
 	size_t Size() const;
 	IteratorType Begin() const;

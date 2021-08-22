@@ -1,4 +1,5 @@
 #include <stack>
+#include <iostream>
 
 #include "text_parser.hpp"
 
@@ -21,7 +22,6 @@ void TextParser::Parse(std::vector<Layer>& result)
 		for(size_t i = 0; i < mDataView.Size(); ++i)
 		{
 			auto it = mDataView.Begin() + i;
-
 			if(result.empty())
 			{
 				result.emplace_back(
@@ -51,8 +51,8 @@ void TextParser::Parse(std::vector<Layer>& result)
 			{
 				if(mask_iter + 1 == mMask.end())
 				{
-					std::string found_word{mDataView.Begin() + (i - mMask.size() - 1), it + 1};
-					size_t distance = i - result.back().distance - mMask.size() - 1;
+					std::string found_word{it - mMask.size() + 1, it + 1};
+					size_t distance = i - result.back().distance - mMask.size() + 1;
 					result.back().appearences.emplace_back(Appearence{found_word, distance});
 					mask_iter = mMask.cbegin();
 				}

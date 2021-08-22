@@ -33,13 +33,15 @@ public:
 	{
 		ViewType result;
 		std::lock_guard<std::mutex> lg(mStorageMutex);
+		size_t order_id{0};
 		if(TryUpdateStorageIterators())
 		{
 			const size_t move_distance = std::max<size_t>(std::min<size_t>(mStorageEnd - mCurrentPosition, mOptions.mDataViewSize), 0);
 			result = ViewType(mCurrentPosition, mCurrentPosition + move_distance);
+			order_id = ExtractedDataOrderId();
 			MoveStorageIterators();
 		}
-		return std::make_tuple<ViewType, size_t>(std::move(result), ExtractedDataOrderId());
+		return std::make_tuple<ViewType, size_t>(std::move(result), std::move(order_id));
 	}
 
 	size_t ExtractedDataOrderId() const
