@@ -11,19 +11,31 @@
 namespace text_processing
 {
 
-struct Appearence
-{
-	std::string word;
-	size_t distance; // from layer begin
-};
+// struct Appearence
+// {
+// 	std::string word;
+// 	size_t distance; // from layer begin
+// };
 
 struct Layer
 {
-	std::vector<Appearence> appearences;
-	size_t distance; // from data frame begin [deprecated]
+	/*
+	first - distance from layer begin
+	second - found word
+	*/
+	std::map<size_t, std::string> appearences;
 	size_t length;
 	bool incomplete_from_begin;
 	bool incomplete_from_end;
+
+	void Merge(const Layer& other)
+	{
+		for(const auto& appearence : other.appearences)
+		{
+			// appearences[length + appearence.first]
+		}
+		length += other.length;
+	}
 };
 
 struct ParsingResult
@@ -54,6 +66,7 @@ struct ParsingResult
 			std::string layer_result;
 			Layer real_line;
 			size_t real_lines_count;
+			size_t current_line_idx{1};
 			while(true)
 			{
 				if(current != prev)
@@ -65,12 +78,27 @@ struct ParsingResult
 
 					if(part_of_prev)
 					{
-						 auto appears = current->appearences;
+						 for(const auto& appearence : current->appearences)
+						 {
+						 	real_line.appearences[real_line.length + appearence.first] = appearence.second;
+						 }
+						 real_line.length += (current->length - mLayeringSize);
 					}
 					else
 					{
-						
+						if(!real_line.appearences.empty())
+						{
+							for(const auto& word : real_line.appearences)
+							{
+								result << current_line_idx << " " << word.first << " " << word.second;
+							}
+						}
+						real_line = *current;
 					}
+				}
+				else
+				{
+					real_line = *prev;
 				}
 
 				prev = current;
@@ -78,6 +106,13 @@ struct ParsingResult
 				{
 					if(++current_layer == mLayers.cend())
 					{
+						if(!real_line.appearences.empty())
+						{
+							for(const auto& word : real_line.appearences)
+							{
+								result << current_line_idx << " " << word.first << " " << word.second;
+							}
+						}
 						break;
 					}
 					else
@@ -85,6 +120,7 @@ struct ParsingResult
 						current = current_layer->second.cbegin();
 					}
 				}
+				++current_line_idx;
 			}
 
 		}

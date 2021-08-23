@@ -5,8 +5,8 @@
 
 int main(int argc, char** argv)
 {
-	const std::string fname("test_data/test_file");
-	text_processing::TextProcessor processor{fname, "?r?"};
+	const std::string fname("test_data/light_test_file");
+	text_processing::TextProcessor processor{fname, "ha?"};
 	auto result = processor.Process();
 
 	// for(const auto& entry : result.mLayers)
