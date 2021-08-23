@@ -11,10 +11,12 @@ public:
 	using IteratorType = std::string::const_iterator;
 	TextStorage() = default;
 	TextStorage(std::string&& value);
-
-	void Aquire(std::string&& value);
-	void Clear();
-	bool IsValid();
+	void Append(std::string&& value);
+	/*
+	Erase substring [from, to)
+	*/
+	void Erase(const IteratorType& from, const IteratorType& to);
+	bool IsValid() const;
 	IteratorType Begin() const;
 	IteratorType End() const;
 private:

@@ -18,15 +18,17 @@ void TextParser::Parse(std::vector<Layer>& result)
 	if(!mDataView.Empty())
 	{
 		auto mask_iter = mMask.cbegin();
-		size_t layer_distance{0};
+		size_t new_layer_distance{0};
+		TextDataView::IteratorType it = mDataView.Begin();
 		for(size_t i = 0; i < mDataView.Size(); ++i)
 		{
-			auto it = mDataView.Begin() + i;
+			it = mDataView.Begin() + i;
 			if(result.empty())
 			{
 				result.emplace_back(
 					Layer{
 						std::vector<Appearence>(),
+						0,
 						0,
 						true,
 						true
@@ -36,15 +38,18 @@ void TextParser::Parse(std::vector<Layer>& result)
 			
 			if(*it == '\n')
 			{
+				result.back().length = it - mDataView.Begin() - new_layer_distance;
 				result.back().incomplete_from_end = false;
 				result.emplace_back(
 					Layer{
 						std::vector<Appearence>(),
 						i + 1,
+						0,
 						false,
 						true
 					}
 				);
+				new_layer_distance = i + 1;
 			}
 
 			if(Compare(*mask_iter, *it))
@@ -67,6 +72,7 @@ void TextParser::Parse(std::vector<Layer>& result)
 				mask_iter = mMask.cbegin();
 			}
 		}
+		result.back().length = it - mDataView.Begin() - new_layer_distance;
 	}
 }
 

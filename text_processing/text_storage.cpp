@@ -5,17 +5,12 @@ namespace text_processing
 
 TextStorage::TextStorage(std::string&& value) : mValue(value) {}
 
-void TextStorage::Aquire(std::string&& value)
+void TextStorage::Append(std::string&& value)
 {
-	mValue = value;
+	mValue.append(value);
 }
 
-void TextStorage::Clear()
-{
-	mValue.clear();
-}
-
-bool TextStorage::IsValid()
+bool TextStorage::IsValid() const
 {
 	return !mValue.empty();
 }
@@ -28,6 +23,16 @@ TextStorage::IteratorType TextStorage::Begin() const
 TextStorage::IteratorType TextStorage::End() const
 {
 	return mValue.cend();
+}
+
+void TextStorage::Erase(const IteratorType& from, const IteratorType& to)
+{
+	bool from_valid = from >= Begin() && from < End();
+	bool to_valid = to > Begin() && to <= End();
+	if(from_valid && to_valid)
+	{
+		mValue = std::string(Begin(), from) + std::string(to, End());
+	}
 }
 
 } // namespace text_processing

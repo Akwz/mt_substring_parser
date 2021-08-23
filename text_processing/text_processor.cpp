@@ -7,7 +7,7 @@ namespace text_processing
 {
 
 TextProcessor::TextProcessor(const std::string& file_path, const std::string& mask)
-	: mDataStorage{TextProvider{file_path, TextProviderOptions{}}, data::SharedStorageOptions{}}
+	: mDataStorage{TextProvider{file_path, TextProviderOptions{}}, data::SharedStorageOptions{mask.size(), 256}}
 	, mActivityManager{activity::ActivityManager::Instance()}
 	, mMask(mask)
 {}
@@ -19,6 +19,7 @@ ParsingResult TextProcessor::Process()
 	const auto parsing_unit = [&storage = mDataStorage, &mask = mMask]() -> ParsingResult
 	{
 		ParsingResult result;
+		result.SetLayering(mask.size());
 		auto next_data = storage.TryGetNextData();
 		size_t current_order_id = std::get<1>(next_data);
 		TextDataView text_to_process(std::get<0>(next_data).begin(), std::get<0>(next_data).end());

@@ -7,8 +7,9 @@ namespace text_processing
 
 class TextDataView
 {
-	using IteratorType = std::string::const_iterator;
 public:
+	using IteratorType = std::string::const_iterator;
+	
 	TextDataView();
 	explicit TextDataView(const IteratorType& begin, const IteratorType& end);
 	bool Empty() const;

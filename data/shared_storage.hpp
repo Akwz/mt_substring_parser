@@ -17,11 +17,11 @@ struct SharedStorageOptions
 	Next fetched data view with layering = 3: [1 2 3 4]
 	Next fetched data with same layering: [2 3 4 5]
 	*/
-	int64_t mDataViewLayering{0};
+	size_t mDataViewLayering{0};
 	/*
 	Size of each fetched DataView
 	*/
-	int64_t mDataViewSize{256};
+	size_t mDataViewSize{256};
 };
 
 template<typename StorageType, typename ProviderType, typename ViewType>
@@ -65,8 +65,8 @@ private:
 
 	void TryFetchDataFromProvider()
 	{
-		mStorage.Clear();
-		mStorage.Aquire(mDataProvider.Fetch());
+		if(mStorage.IsValid()) mStorage.Erase(mStorage.Begin(), mStorage.End() - mOptions.mDataViewLayering);
+		mStorage.Append(mDataProvider.Fetch());
 		ResetStorageIterators();
 	}
 
