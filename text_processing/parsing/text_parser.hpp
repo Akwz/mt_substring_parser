@@ -138,14 +138,18 @@ struct ParsingResult
 class TextParser
 {
 public:
+	using IteratorType = TextDataView::IteratorType;
+
 	TextParser(const TextDataView& data, const std::string& mask);
 
 	void Parse(std::vector<Layer>& result);
 private:
-	bool Compare(char mask, char symbol);
+	bool Compare(char mask, char symbol) const;
+	Layer ProcessNewLayer(IteratorType& position, const IteratorType& bound) const;
 
 	const TextDataView& mDataView;
 	const std::string& mMask;
+	const char mLayerSeparator{'\n'};
 };
 
 } // namespace text_processing
