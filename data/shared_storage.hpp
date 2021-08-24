@@ -66,7 +66,12 @@ private:
 	void TryFetchDataFromProvider()
 	{
 		if(mStorage.IsValid()) mStorage.Erase(mStorage.Begin(), mStorage.End() - mOptions.mDataViewLayering);
+		auto before_fetching = mStorage.Size();
 		mStorage.Append(mDataProvider.Fetch());
+		if(mStorage.Size() == before_fetching)
+		{
+			mStorage.Clear();
+		}
 		ResetStorageIterators();
 	}
 

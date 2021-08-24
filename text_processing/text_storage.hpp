@@ -12,6 +12,7 @@ public:
 	TextStorage() = default;
 	TextStorage(std::string&& value);
 	void Append(std::string&& value);
+	void Clear();
 	/*
 	Erase substring [from, to)
 	*/
@@ -19,6 +20,7 @@ public:
 	bool IsValid() const;
 	IteratorType Begin() const;
 	IteratorType End() const;
+	size_t Size() const;
 private:
 	std::string mValue;
 };

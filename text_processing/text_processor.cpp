@@ -16,6 +16,7 @@ ParsingResult TextProcessor::Process()
 {
 	const size_t activity_task_count = mActivityManager->SuitableTaskCount();
 	activity::Activity<ParsingResult> text_parsing_activity;
+	text_parsing_activity.result.SetLayering(mMask.size());
 	const auto parsing_unit = [&storage = mDataStorage, &mask = mMask]() -> ParsingResult
 	{
 		ParsingResult result;
@@ -25,10 +26,10 @@ ParsingResult TextProcessor::Process()
 		TextDataView text_to_process(std::get<0>(next_data).begin(), std::get<0>(next_data).end());
 		while(!text_to_process.Empty())
 		{
-			if(result.mLayers.find(current_order_id) == result.mLayers.end())
-			{
-				result.mLayers[current_order_id] = std::vector<Layer>();
-			}
+			// if(result.mLayers.find(current_order_id) == result.mLayers.end())
+			// {
+			// 	result.mLayers[current_order_id] = std::vector<Layer>();
+			// }
 			TextParser parser(text_to_process, mask);
 			parser.Parse(result.mLayers[current_order_id]);
 			next_data = storage.TryGetNextData();

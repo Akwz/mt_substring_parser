@@ -10,6 +10,16 @@ void TextStorage::Append(std::string&& value)
 	mValue.append(value);
 }
 
+void TextStorage::Clear()
+{
+	mValue.clear();
+}
+
+size_t TextStorage::Size() const
+{
+	return mValue.size();
+}
+
 bool TextStorage::IsValid() const
 {
 	return !mValue.empty();

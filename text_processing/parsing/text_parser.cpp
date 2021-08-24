@@ -34,7 +34,7 @@ void TextParser::Parse(std::vector<Layer>& result)
 					}
 				);
 			}
-			
+
 			if(*it == '\n')
 			{
 				result.back().length = it - mDataView.Begin() - new_layer_distance;
@@ -49,12 +49,14 @@ void TextParser::Parse(std::vector<Layer>& result)
 				);
 				new_layer_distance = i + 1;
 			}
-
+			// std::cout << ((*it) + " ");
 			if(Compare(*mask_iter, *it))
 			{
-				if(mask_iter + 1 == mMask.end())
+				// std::cout << (std::to_string(i) + " " + *it + "\n");
+				if(mask_iter + 1 == mMask.cend())
 				{
 					std::string found_word{it - mMask.size() + 1, it + 1};
+					// std::cout << ("Found: " + found_word + "\n");
 					size_t distance = i - new_layer_distance;
 					result.back().appearences.insert(std::make_pair<size_t, std::string>(std::move(distance), std::move(found_word)));
 					mask_iter = mMask.cbegin();

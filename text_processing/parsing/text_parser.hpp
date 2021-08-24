@@ -90,7 +90,7 @@ struct ParsingResult
 						{
 							for(const auto& word : real_line.appearences)
 							{
-								result << current_line_idx << " " << word.first << " " << word.second;
+								result << current_line_idx << " " << word.first << " " << word.second << "\n";
 							}
 						}
 						real_line = *current;
@@ -110,7 +110,7 @@ struct ParsingResult
 						{
 							for(const auto& word : real_line.appearences)
 							{
-								result << current_line_idx << " " << word.first << " " << word.second;
+								result << current_line_idx << " " << word.first << " " << word.second << "\n";
 							}
 						}
 						break;
