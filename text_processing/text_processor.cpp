@@ -26,12 +26,9 @@ ParsingResult TextProcessor::Process()
 		TextDataView text_to_process(std::get<0>(next_data).begin(), std::get<0>(next_data).end());
 		while(!text_to_process.Empty())
 		{
-			// if(result.mLayers.find(current_order_id) == result.mLayers.end())
-			// {
-			// 	result.mLayers[current_order_id] = std::vector<Layer>();
-			// }
+
 			TextParser parser(text_to_process, mask);
-			parser.Parse(result.mLayers[current_order_id]);
+			parser.Parse(result.mResultSequence[current_order_id]);
 			next_data = storage.TryGetNextData();
 			text_to_process = TextDataView{std::get<0>(next_data).begin(), std::get<0>(next_data).end()};
 			current_order_id = std::get<1>(next_data);

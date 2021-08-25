@@ -17,28 +17,33 @@ void TextParser::Parse(std::vector<Layer>& result)
 {
 	if(!mDataView.Empty())
 	{
-		for(auto it = mDataView.Begin(); it != mDataView.End(); ++it)
+		for(auto it = mDataView.Begin(); it != mDataView.End();)
 		{
-			if(*it != mLayerSeparator)
-			{
-				result.emplace_back(ProcessNewLayer(it, mDataView.End()));
-			}
+			Layer new_layer{
+				{},
+				0,
+				it == mDataView.Begin(),
+				true
+			};
+
+			ProcessNewLayer(new_layer, it, mDataView.End());
+			result.emplace_back(std::move(new_layer));
 		}
 	}
 }
 
-Layer TextParser::ProcessNewLayer(IteratorType& position, const IteratorType& bound) const
+void TextParser::ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound) const
 {
-	Layer result;
 	auto mask_iter = mMask.cbegin();
 	size_t curr_position_offset{0};
-	while(*position != mLayerSeparator)
+	while(position != bound && *position != mLayerSeparator)
 	{
 		if(Compare(*mask_iter, *position))
 		{
 			if(mask_iter + 1 == mMask.cend())
 			{
-				result.appearences.insert(std::make_pair<size_t, std::string>(curr_position_offset - mMask.size() + 1, std::string(position - mMask.size() + 1, position + 1)));
+				result.appearences.insert(std::pair<size_t, std::string>(curr_position_offset - mMask.size() + 1, std::string(position - mMask.size() + 1, position + 1)));
+				mask_iter = mMask.cbegin();
 			}
 			else
 			{
@@ -52,8 +57,14 @@ Layer TextParser::ProcessNewLayer(IteratorType& position, const IteratorType& bo
 
 		++position;
 		++curr_position_offset;
+		++result.length;
 	}
-	return result;
+
+	if(position != bound && *position == mLayerSeparator)
+	{
+		result.incomplete_from_end = false;
+		++position;
+	}
 }
 
 // void TextParser::Parse(std::vector<Layer>& result)
