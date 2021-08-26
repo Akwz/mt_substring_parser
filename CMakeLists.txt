@@ -6,20 +6,9 @@ if (UNIX)
 	set(CMAKE_CXX_FLAGS -pthread)
 endif (UNIX)
 
-project(substring_parser)
-
-include_directories(
-./
-utils/
-activity/
-activity/workers
-data/
-text_processing/
-text_processing/parsing
-)
+project(substring_parser VERSION 1.0)
 
 set(SOURCES
-main.cpp
 data/shared_storage.cpp
 data/result_container.cpp
 activity/activity.cpp
@@ -33,4 +22,35 @@ text_processing/text_processor.cpp
 text_processing/parsing/text_parser.cpp
 )
 
-add_executable(substring_parser ${SOURCES})
+set(HEADERS
+"./"
+"utils/"
+"activity/"
+"activity/workers"
+"data/"
+"text_processing/"
+"text_processing/parsing"
+)
+
+add_executable(substring_parser main.cpp ${SOURCES})
+
+target_include_directories(substring_parser PUBLIC ${HEADERS})
+
+project(parser_test)
+
+set(TEST_SOURCES
+test/googletest/src/gtest_main.cc
+text_processing/test/text_processor_test.cpp
+)
+
+set(TEST_HEADERS
+"test/googletest/include/"
+)
+
+add_executable(parser_test ${SOURCES} ${TEST_SOURCES})
+
+target_include_directories(parser_test PUBLIC ${HEADERS} ${TEST_HEADERS})
+
+add_subdirectory(test test/build)
+
+target_link_libraries(parser_test gtest)
