@@ -18,7 +18,6 @@ activity/workers/task_queue.cpp
 text_processing/text_storage.cpp
 text_processing/text_provider.cpp
 text_processing/text_data_view.cpp
-text_processing/text_processor.cpp
 text_processing/parsing/text_parser.cpp
 )
 
@@ -45,6 +44,7 @@ text_processing/test/text_processor_test.cpp
 
 set(TEST_HEADERS
 "test/googletest/include/"
+"text_processing/test/"
 )
 
 add_executable(parser_test ${SOURCES} ${TEST_SOURCES})

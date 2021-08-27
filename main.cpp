@@ -5,10 +5,10 @@
 
 int main(int argc, char** argv)
 {
-	const std::string fname("test_data/test_file");
-	text_processing::TextProcessor processor{fname, "rt?"};
-	auto result = processor.Process();
-	std::cout << result.GetValue();
+	// const std::string fname("test_data/test_file");
+	// text_processing::TextProcessor processor{fname, "rt?"};
+	// auto result = processor.Process();
+	// std::cout << result.GetValue();
 
 	// for(const auto& entry : result.mResultSequence)
 	// {
@@ -22,6 +22,6 @@ int main(int argc, char** argv)
 	// 	}
 	// }
 
-	std::cout << "Done: " << result.mResultSequence.size() << std::endl;
+	// std::cout << "Done: " << result.mResultSequence.size() << std::endl;
 	return 0;
 }

@@ -44,15 +44,15 @@ public:
 		return std::make_tuple<ViewType, size_t>(std::move(result), std::move(order_id));
 	}
 
-	size_t ExtractedDataOrderId() const
-	{
-		return mExtractedDataCounter;
-	}
-
 private:
 	SharedStorage() = delete;
 	SharedStorage(const SharedStorage&) = delete;
 	SharedStorage& operator=(const SharedStorage&) = delete;
+
+	size_t ExtractedDataOrderId() const
+	{
+		return mExtractedDataCounter;
+	}
 
 	bool TryUpdateStorageIterators()
 	{
