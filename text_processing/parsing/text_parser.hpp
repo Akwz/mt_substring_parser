@@ -68,23 +68,22 @@ struct ParsingResult
 		std::ostringstream result;
 		std::vector<Layer> layers;
 		GetMergedLayerSequence(layers);
-		std::cout << layers.size();
 		// size_t acc = 0;
 		// for(const auto& entry : mResultSequence)
 		// {
 		// 	acc += entry.second.size();
 		// }
 		// std::cout << acc << std::endl;
-		// for(size_t i = 0; i < layers.size(); ++i)
-		// {
-		// 	if(!layers[i].appearences.empty())
-		// 	{
-		// 		for(const auto& entry : layers[i].appearences)
-		// 		{
-		// 			result << i + 1 << " " << entry.first << " " << entry.second << "\n";
-		// 		}
-		// 	}
-		// }
+		for(size_t i = 0; i < layers.size(); ++i)
+		{
+			if(!layers[i].appearences.empty())
+			{
+				for(const auto& entry : layers[i].appearences)
+				{
+					result << i + 1 << " " << entry.first << " " << entry.second << "\n";
+				}
+			}
+		}
 		return result.str();
 	}
 

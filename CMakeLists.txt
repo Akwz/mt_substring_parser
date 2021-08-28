@@ -40,6 +40,7 @@ project(parser_test)
 set(TEST_SOURCES
 test/googletest/src/gtest_main.cc
 text_processing/test/text_processor_test.cpp
+text_processing/test/test_utils.cpp
 )
 
 set(TEST_HEADERS
