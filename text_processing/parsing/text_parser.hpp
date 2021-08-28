@@ -73,7 +73,6 @@ struct ParsingResult
 		// {
 		// 	acc += entry.second.size();
 		// }
-		// std::cout << acc << std::endl;
 		for(size_t i = 0; i < layers.size(); ++i)
 		{
 			if(!layers[i].appearences.empty())
@@ -99,7 +98,9 @@ struct ParsingResult
 				const auto& layers = it->second;
 				for(auto l_it = layers.cbegin(); l_it != layers.cend(); ++l_it)
 				{
-					bool is_ghost_layer = l_it->stars_in_layering_range && l_it->ends_in_layering_range;
+					bool is_ghost_layer = l_it->stars_in_layering_range
+						&& l_it->ends_in_layering_range
+						&& (!merged_layers.empty() || !current_line.appearences.empty());
 					if(is_ghost_layer)
 					{
 						ghost_layering += (l_it->length + 1);

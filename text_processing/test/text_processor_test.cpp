@@ -32,14 +32,55 @@ INSTANTIATE_TEST_SUITE_P(
 	ParsingInputFixture,
 	testing::Values(
 		ParamsType(
-			MockDataProvider::Options{100},
-
-			"hello this is test text, please - test it! =) 289054kladjgnp ;povmvqdcmjsp" \
-			"second line ads'gjag[ ia[aijg[",
-
-			"la?",
-
-			"1 53 lad\n"
+			MockDataProvider::Options{4},
+			"abc",
+			"abc",
+			"1 0 abc\n"
+		),
+		ParamsType(
+			MockDataProvider::Options{6},
+			"abcabc",
+			"abc",
+			"1 0 abc\n" \
+			"1 3 abc\n"
+		),
+		ParamsType(
+			MockDataProvider::Options{4},
+			"abcabc",
+			"abc",
+			"1 0 abc\n" \
+			"1 3 abc\n"
+		),
+		ParamsType(
+			MockDataProvider::Options{7},
+			"abc\nabc",
+			"abc",
+			"1 0 abc\n" \
+			"2 0 abc\n"
+		),
+		ParamsType(
+			MockDataProvider::Options{4},
+			"abc\nabc\nabc\nabc\nabc\nabc",
+			"abc",
+			"1 0 abc\n" \
+			"2 0 abc\n" \
+			"3 0 abc\n" \
+			"4 0 abc\n" \
+			"5 0 abc\n" \
+			"6 0 abc\n"
+		),
+		ParamsType(
+			MockDataProvider::Options{7},
+			"abcabc\nabcabc\nabcabc\nabcabc",
+			"abc",
+			"1 0 abc\n" \
+			"1 3 abc\n" \
+			"2 0 abc\n" \
+			"2 3 abc\n" \
+			"3 0 abc\n" \
+			"3 3 abc\n" \
+			"4 0 abc\n" \
+			"4 3 abc\n"
 		)
 	)
 );
