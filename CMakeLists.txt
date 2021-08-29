@@ -19,6 +19,7 @@ text_processing/text_storage.cpp
 text_processing/text_provider.cpp
 text_processing/text_data_view.cpp
 text_processing/parsing/text_parser.cpp
+text_processing/parsing/single_prefix_mask.cpp
 )
 
 set(HEADERS

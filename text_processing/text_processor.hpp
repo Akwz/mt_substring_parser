@@ -39,7 +39,6 @@ public:
 			TextDataView text_to_process(std::get<0>(next_data).begin(), std::get<0>(next_data).end());
 			while(!text_to_process.Empty())
 			{
-
 				TextParser parser(text_to_process, mask);
 				parser.Parse(result.mResultSequence[current_order_id]);
 				next_data = storage.TryGetNextData();

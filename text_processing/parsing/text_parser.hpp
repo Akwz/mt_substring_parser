@@ -25,16 +25,17 @@ struct Layer
 
 	void Merge(const Layer& other, size_t layering, size_t appearence_size)
 	{
+		size_t layering_offset = length > 0 ? layering : 0;
 		for(auto it = other.appearences.cbegin(); it != other.appearences.cend(); ++it)
-		{
-			size_t distance = it->first + length - (length > 0 ? layering : 0);
+		{ 
+			size_t distance = it->first + length - layering_offset;
 			const auto& word = it->second;
 			if(appearences.empty() || (distance >= appearences.crbegin()->first + appearence_size))
 			{
 				appearences.insert(std::pair<size_t, std::string>(distance, word));
 			}
 		}
-		length += (other.length - layering);
+		length += (other.length - layering_offset);
 	}
 
 	void Reset()
@@ -68,11 +69,6 @@ struct ParsingResult
 		std::ostringstream result;
 		std::vector<Layer> layers;
 		GetMergedLayerSequence(layers);
-		// size_t acc = 0;
-		// for(const auto& entry : mResultSequence)
-		// {
-		// 	acc += entry.second.size();
-		// }
 		for(size_t i = 0; i < layers.size(); ++i)
 		{
 			if(!layers[i].appearences.empty())
