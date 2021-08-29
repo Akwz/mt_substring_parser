@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include "text_data_view.hpp"
+#include "single_prefix_mask.hpp"
 
 
 namespace text_processing
@@ -132,15 +133,15 @@ class TextParser
 public:
 	using IteratorType = TextDataView::IteratorType;
 
-	TextParser(const TextDataView& data, const std::string& mask);
+	TextParser(const TextDataView& data, const MaskView& mask);
 
 	void Parse(std::vector<Layer>& result);
 private:
 	bool Compare(char mask, char symbol) const;
-	void ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound) const;
+	void ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound);
 
 	const TextDataView& mDataView;
-	const std::string& mMask;
+	MaskView mMask;
 	const char mLayerSeparator{'\n'};
 };
 

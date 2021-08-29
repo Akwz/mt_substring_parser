@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <vector>
 
@@ -46,8 +48,8 @@ public:
 	size_t Size() const {return std::max<size_t>(mMask.mStorage.mNodes.size() - 1, 0);}
 	bool Compare(char symbol);
 	bool IsReachedEnd() const;
-private:
 	void Reset();
+private:
 	void ResetToSuffixValue();
 
 	const SinglePrefixMask& mMask;

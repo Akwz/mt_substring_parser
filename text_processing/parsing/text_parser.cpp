@@ -7,7 +7,7 @@
 namespace text_processing
 {
 
-TextParser::TextParser(const TextDataView& data_view, const std::string& mask)
+TextParser::TextParser(const TextDataView& data_view, const MaskView& mask)
 	: mDataView(data_view)
 	, mMask(mask)
 {
@@ -23,38 +23,29 @@ void TextParser::Parse(std::vector<Layer>& result)
 				{},
 				0,
 				true,
-				it < mDataView.Begin() + mMask.size(),
+				it < mDataView.Begin() + mMask.Size(),
 				false
 			};
 
 			ProcessNewLayer(new_layer, it, mDataView.End());
-			new_layer.ends_in_layering_range = it - mDataView.Begin() <= mMask.size();
+			new_layer.ends_in_layering_range = it - mDataView.Begin() <= mMask.Size();
 			result.emplace_back(std::move(new_layer));
 		}
 	}
 }
 
-void TextParser::ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound) const
+void TextParser::ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound)
 {
-	auto mask_iter = mMask.cbegin();
 	size_t curr_position_offset{0};
 	while(position != bound && *position != mLayerSeparator)
 	{
-		if(Compare(*mask_iter, *position))
+		if(mMask.Compare(*position))
 		{
-			if(mask_iter + 1 == mMask.cend())
+			if(mMask.IsReachedEnd())
 			{
-				result.appearences.insert(std::pair<size_t, std::string>(curr_position_offset - mMask.size() + 1, std::string(position - mMask.size() + 1, position + 1)));
-				mask_iter = mMask.cbegin();
+				result.appearences.insert(std::pair<size_t, std::string>(curr_position_offset - mMask.Size() + 1, std::string(position - mMask.Size() + 1, position + 1)));
+				mMask.Reset();
 			}
-			else
-			{
-				++mask_iter;
-			}
-		}
-		else
-		{
-			mask_iter = mMask.cbegin();
 		}
 
 		++position;

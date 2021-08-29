@@ -10,6 +10,7 @@ constexpr char REGEX_SYMBOL{'\n'};
 
 SinglePrefixMask::SinglePrefixMask(const std::string& source)
 {
+	assert(!source.empty());
 	mStorage.mNodes.emplace_back(PrefixList::Node());
 	for(size_t i = 1; i <= source.size(); ++i)
 	{

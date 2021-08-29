@@ -38,156 +38,156 @@ INSTANTIATE_TEST_SUITE_P(
 			"abc",
 			"abc",
 			"1 0 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMask_NoNewLine_FetchSizeEqualsTextSize",
-			MockDataProvider::Options{6},
-			"abcabc",
-			"abc",
-			"1 0 abc\n" \
-			"1 3 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMask_NoNewLine_FetchSizeLowerThanTextSize",
-			MockDataProvider::Options{4},
-			"abcabc",
-			"abc",
-			"1 0 abc\n" \
-			"1 3 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMask_WithOneNewLine_FetchSizeEqualsTextSize",
-			MockDataProvider::Options{7},
-			"abc\nabc",
-			"abc",
-			"1 0 abc\n" \
-			"2 0 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMask_WithOneNewLine_FetchSizeLowerThanTextSize_FetchSizeGreaterThanLineSize",
-			MockDataProvider::Options{5},
-			"abc\nabc",
-			"abc",
-			"1 0 abc\n" \
-			"2 0 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMask_WithMultipleNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
-			MockDataProvider::Options{4},
-			"abc\nabc\nabc\nabc\nabc\nabc",
-			"abc",
-			"1 0 abc\n" \
-			"2 0 abc\n" \
-			"3 0 abc\n" \
-			"4 0 abc\n" \
-			"5 0 abc\n" \
-			"6 0 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMaskWithinEveryLine_WithMultipleNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
-			MockDataProvider::Options{7},
-			"abcabc\nabcabc\nabcabc\nabcabc",
-			"abc",
-			"1 0 abc\n" \
-			"1 3 abc\n" \
-			"2 0 abc\n" \
-			"2 3 abc\n" \
-			"3 0 abc\n" \
-			"3 3 abc\n" \
-			"4 0 abc\n" \
-			"4 3 abc\n"
-		),
-		ParamsType(
-			"EmptyText",
-			MockDataProvider::Options{4},
-			"",
-			"abc",
-			""
-		),
-		ParamsType(
-			"TextWithoutMask_NoNewLine_FetchSizeGreaterThanTextSize",
-			MockDataProvider::Options{4},
-			"cba",
-			"abc",
-			""
-		),
-		ParamsType(
-			"TextWithMaskAtBegin_TextWithNonEqualMaskText_NoNewLine_FetchSizeLowerThanTextSize",
-			MockDataProvider::Options{4},
-			"abcdef",
-			"abc",
-			"1 0 abc\n"
-		),
-		ParamsType(
-			"TextWithMaskAtBegin_TextWithNonEqualMaskText_NoNewLine_FetchSizeGreaterThanTextSize",
-			MockDataProvider::Options{7},
-			"abcdef",
-			"abc",
-			"1 0 abc\n"
-		),
-		ParamsType(
-			"TextWithMaskAtTheEnd_TextWithNonEqualMaskText_NoNewLine_FetchSizeLowerThanTextSize",
-			MockDataProvider::Options{4},
-			"defabc",
-			"abc",
-			"1 3 abc\n"
-		),
-		ParamsType(
-			"TextWithMaskAtTheEnd_TextWithNonEqualMaskText_NoNewLine_FetchSizeEqualsTextSize",
-			MockDataProvider::Options{4},
-			"defabc",
-			"abc",
-			"1 3 abc\n"
-		),
-		ParamsType(
-			"TextWithMaskAtBegin_TextWithNonEqualMaskText_WithNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
-			MockDataProvider::Options{4},
-			"abc\ndef",
-			"abc",
-			"1 0 abc\n"
-		),
-		ParamsType(
-			"TextWithMaskAtTheEnd_TextWithNonEqualMaskText_WithNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
-			MockDataProvider::Options{4},
-			"def\nabc",
-			"abc",
-			"2 0 abc\n"
-		),
-		ParamsType(
-			"TextEqualsMultipleMask_TextWithNonEqualMaskText_WithNewLine_FetchSizeLowerThanTextSize_FetchSizeLowerThanLineSize",
-			MockDataProvider::Options{10},
-			"abcdefghijklmnopqrstuvwxyz\ndefghijklmnopabcqrstuvwxyz\ndefghijklmnopqrstuvwxyzabc\n",
-			"abc",
-			"1 0 abc\n" \
-			"2 13 abc\n" \
-			"3 23 abc\n"
-		),
-		ParamsType(
-			"TextEqualMaskWithRegexpCharacters_WithNewLine",
-			MockDataProvider::Options{10},
-			"laaqwertylauzxcvblat\nasladfghlairetylamtuy",
-			"la?",
-			"1 0 laa\n" \
-			"1 9 lau\n" \
-			"1 17 lat\n" \
-			"2 2 lad\n" \
-			"2 8 lai\n" \
-			"2 15 lam\n"
-		),
-		ParamsType(
-			"OnlyRegexMask_MaskSizeGreterThanLineSize_ExpectedCropNonMaskSuitableText",
-			MockDataProvider::Options{10},
-			"aeproigaf\nompahgore",
-			"?????",
-			"1 0 aepro\n" \
-			"2 0 ompah\n"
-		),
-		ParamsType(
-			"PrefixMaskLayeredText",
-			MockDataProvider::Options{10},
-			"evevery",
-			"every",
-			"1 2 every\n"
 		)
+		// ParamsType(
+		// 	"TextEqualsMultipleMask_NoNewLine_FetchSizeEqualsTextSize",
+		// 	MockDataProvider::Options{6},
+		// 	"abcabc",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"1 3 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualsMultipleMask_NoNewLine_FetchSizeLowerThanTextSize",
+		// 	MockDataProvider::Options{4},
+		// 	"abcabc",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"1 3 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualsMultipleMask_WithOneNewLine_FetchSizeEqualsTextSize",
+		// 	MockDataProvider::Options{7},
+		// 	"abc\nabc",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"2 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualsMultipleMask_WithOneNewLine_FetchSizeLowerThanTextSize_FetchSizeGreaterThanLineSize",
+		// 	MockDataProvider::Options{5},
+		// 	"abc\nabc",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"2 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualsMultipleMask_WithMultipleNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
+		// 	MockDataProvider::Options{4},
+		// 	"abc\nabc\nabc\nabc\nabc\nabc",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"2 0 abc\n" \
+		// 	"3 0 abc\n" \
+		// 	"4 0 abc\n" \
+		// 	"5 0 abc\n" \
+		// 	"6 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualsMultipleMaskWithinEveryLine_WithMultipleNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
+		// 	MockDataProvider::Options{7},
+		// 	"abcabc\nabcabc\nabcabc\nabcabc",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"1 3 abc\n" \
+		// 	"2 0 abc\n" \
+		// 	"2 3 abc\n" \
+		// 	"3 0 abc\n" \
+		// 	"3 3 abc\n" \
+		// 	"4 0 abc\n" \
+		// 	"4 3 abc\n"
+		// ),
+		// ParamsType(
+		// 	"EmptyText",
+		// 	MockDataProvider::Options{4},
+		// 	"",
+		// 	"abc",
+		// 	""
+		// ),
+		// ParamsType(
+		// 	"TextWithoutMask_NoNewLine_FetchSizeGreaterThanTextSize",
+		// 	MockDataProvider::Options{4},
+		// 	"cba",
+		// 	"abc",
+		// 	""
+		// ),
+		// ParamsType(
+		// 	"TextWithMaskAtBegin_TextWithNonEqualMaskText_NoNewLine_FetchSizeLowerThanTextSize",
+		// 	MockDataProvider::Options{4},
+		// 	"abcdef",
+		// 	"abc",
+		// 	"1 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextWithMaskAtBegin_TextWithNonEqualMaskText_NoNewLine_FetchSizeGreaterThanTextSize",
+		// 	MockDataProvider::Options{7},
+		// 	"abcdef",
+		// 	"abc",
+		// 	"1 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextWithMaskAtTheEnd_TextWithNonEqualMaskText_NoNewLine_FetchSizeLowerThanTextSize",
+		// 	MockDataProvider::Options{4},
+		// 	"defabc",
+		// 	"abc",
+		// 	"1 3 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextWithMaskAtTheEnd_TextWithNonEqualMaskText_NoNewLine_FetchSizeEqualsTextSize",
+		// 	MockDataProvider::Options{4},
+		// 	"defabc",
+		// 	"abc",
+		// 	"1 3 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextWithMaskAtBegin_TextWithNonEqualMaskText_WithNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
+		// 	MockDataProvider::Options{4},
+		// 	"abc\ndef",
+		// 	"abc",
+		// 	"1 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextWithMaskAtTheEnd_TextWithNonEqualMaskText_WithNewLine_FetchSizeLowerThanTextSize_FetchSizeEqualsLineSize",
+		// 	MockDataProvider::Options{4},
+		// 	"def\nabc",
+		// 	"abc",
+		// 	"2 0 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualsMultipleMask_TextWithNonEqualMaskText_WithNewLine_FetchSizeLowerThanTextSize_FetchSizeLowerThanLineSize",
+		// 	MockDataProvider::Options{10},
+		// 	"abcdefghijklmnopqrstuvwxyz\ndefghijklmnopabcqrstuvwxyz\ndefghijklmnopqrstuvwxyzabc\n",
+		// 	"abc",
+		// 	"1 0 abc\n" \
+		// 	"2 13 abc\n" \
+		// 	"3 23 abc\n"
+		// ),
+		// ParamsType(
+		// 	"TextEqualMaskWithRegexpCharacters_WithNewLine",
+		// 	MockDataProvider::Options{10},
+		// 	"laaqwertylauzxcvblat\nasladfghlairetylamtuy",
+		// 	"la?",
+		// 	"1 0 laa\n" \
+		// 	"1 9 lau\n" \
+		// 	"1 17 lat\n" \
+		// 	"2 2 lad\n" \
+		// 	"2 8 lai\n" \
+		// 	"2 15 lam\n"
+		// ),
+		// ParamsType(
+		// 	"OnlyRegexMask_MaskSizeGreterThanLineSize_ExpectedCropNonMaskSuitableText",
+		// 	MockDataProvider::Options{10},
+		// 	"aeproigaf\nompahgore",
+		// 	"?????",
+		// 	"1 0 aepro\n" \
+		// 	"2 0 ompah\n"
+		// ),
+		// ParamsType(
+		// 	"PrefixMaskLayeredText",
+		// 	MockDataProvider::Options{10},
+		// 	"evevery",
+		// 	"every",
+		// 	"1 2 every\n"
+		// )
 	)
 );

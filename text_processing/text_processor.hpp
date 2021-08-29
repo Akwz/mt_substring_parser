@@ -10,6 +10,7 @@
 #include "text_data_view.hpp"
 #include "activity_manager.hpp"
 #include "text_parser.hpp"
+#include "single_prefix_mask.hpp"
 
 
 namespace text_processing
@@ -29,11 +30,12 @@ public:
 	{
 		const size_t activity_task_count = mActivityManager->SuitableTaskCount();
 		activity::Activity<ParsingResult> text_parsing_activity;
-		text_parsing_activity.result.SetLayering(mMask.size());
-		const auto parsing_unit = [&storage = mDataStorage, &mask = mMask]() -> ParsingResult
+		MaskView mask{mMask};
+		text_parsing_activity.result.SetLayering(mask.Size());
+		const auto parsing_unit = [&storage = mDataStorage, mask]() mutable -> ParsingResult
 		{
 			ParsingResult result;
-			result.SetLayering(mask.size());
+			result.SetLayering(mask.Size());
 			auto next_data = storage.TryGetNextData();
 			size_t current_order_id = std::get<1>(next_data);
 			TextDataView text_to_process(std::get<0>(next_data).begin(), std::get<0>(next_data).end());
@@ -61,7 +63,7 @@ private:
 
 	data::SharedStorage<TextStorage, ProviderType, std::string>  mDataStorage;
 	std::shared_ptr<activity::ActivityManager> mActivityManager;
-	std::string mMask;
+	SinglePrefixMask mMask;
 };
 
 } // namespace text_processing
