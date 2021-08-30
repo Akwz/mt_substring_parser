@@ -50,7 +50,7 @@ public:
 			return result;
 		};
 
-		for(size_t i = 0; i < 1; ++i)
+		for(size_t i = 0; i < activity_task_count; ++i)
 		{
 			text_parsing_activity.tasks.push_back(parsing_unit);
 		}

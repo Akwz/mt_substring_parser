@@ -188,6 +188,30 @@ INSTANTIATE_TEST_SUITE_P(
 			"evevery",
 			"every",
 			"1 2 every\n"
+		),
+		ParamsType(
+			"PrefixMultipleMaskLayeredText",
+			MockDataProvider::Options{10},
+			"eveveryevevery",
+			"every",
+			"1 2 every\n" \
+			"1 9 every\n"
+		),
+		ParamsType(
+			"PrefixMultipleMaskLayeredText_WithNewLine",
+			MockDataProvider::Options{10},
+			"evevery\nevevery",
+			"every",
+			"1 2 every\n" \
+			"2 2 every\n"
+		),
+		ParamsType(
+			"PrefixMultipleMaskLayeredText_FetchSizeEqualMaskSize",
+			MockDataProvider::Options{5},
+			"eveveryevevery",
+			"every",
+			"1 2 every\n" \
+			"1 9 every\n"
 		)
 	)
 );

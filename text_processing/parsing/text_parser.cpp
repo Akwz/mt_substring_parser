@@ -7,6 +7,8 @@
 namespace text_processing
 {
 
+constexpr char LAYER_SEPARATOR{'\n'};
+
 TextParser::TextParser(const TextDataView& data_view, const MaskView& mask)
 	: mDataView(data_view)
 	, mMask(mask)
@@ -37,7 +39,7 @@ void TextParser::Parse(std::vector<Layer>& result)
 void TextParser::ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound)
 {
 	size_t curr_position_offset{0};
-	while(position != bound && *position != mLayerSeparator)
+	while(position != bound && *position != LAYER_SEPARATOR)
 	{
 		if(mMask.Compare(*position))
 		{
@@ -53,16 +55,12 @@ void TextParser::ProcessNewLayer(Layer& result, IteratorType& position, const It
 		++result.length;
 	}
 
-	if(position != bound && *position == mLayerSeparator)
+	if(position != bound && *position == LAYER_SEPARATOR)
 	{
 		result.incomplete_from_end = false;
 		++position;
 	}
-}
-
-bool TextParser::Compare(char mask, char symbol) const
-{
-	return symbol != '\n' && (mask == '?' || mask == symbol);
+	mMask.Reset();
 }
 
 } // namespace text_processing

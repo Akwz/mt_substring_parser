@@ -137,12 +137,10 @@ public:
 
 	void Parse(std::vector<Layer>& result);
 private:
-	bool Compare(char mask, char symbol) const;
 	void ProcessNewLayer(Layer& result, IteratorType& position, const IteratorType& bound);
 
 	const TextDataView& mDataView;
 	MaskView mMask;
-	const char mLayerSeparator{'\n'};
 };
 
 } // namespace text_processing

@@ -8,7 +8,7 @@
 namespace text_processing
 {
 
-constexpr char REGEX_SYMBOL{'\n'};
+constexpr char REGEX_SYMBOL{'?'};
 constexpr char FORBIDDEN_LIST[]{'\n'};
 constexpr size_t MAX_MASK_SIZE{100};
 
