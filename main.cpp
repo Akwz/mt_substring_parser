@@ -1,27 +1,32 @@
 #include <iostream>
+#include <cassert>
 
 #include "text_processor.hpp"
+#include "text_provider.hpp"
 
 
 int main(int argc, char** argv)
 {
-	// const std::string fname("test_data/test_file");
-	// text_processing::TextProcessor processor{fname, "rt?"};
-	// auto result = processor.Process();
-	// std::cout << result.GetValue();
+	if(argc == 3)
+	{
+		const std::string fname(*(argv + 1));
+		const std::string mask(*(argv + 2));
+		text_processing::TextProcessor<text_processing::TextProvider> processor{
+			text_processing::TextProvider{
+				fname
+			},
+			mask
+		};
+		auto result = processor.Process();
+		std::cout << result.GetValue();
+	}
+	else
+	{
+		std::cout <<
+		"Incorrect input params:\n" \
+		"1 - parsing target path\n" \
+		"2 - mask\n";
+	}
 
-	// for(const auto& entry : result.mResultSequence)
-	// {
-	// 	for(const auto& layer : entry.second)
-	// 	{
-	// 		// std::cout << layer.appearences.size() << std::endl;
-	// 		for(const auto& app : layer.appearences)
-	// 		{
-	// 			std::cout << app.word << std::endl;
-	// 		}
-	// 	}
-	// }
-
-	// std::cout << "Done: " << result.mResultSequence.size() << std::endl;
 	return 0;
 }

@@ -16,7 +16,7 @@ struct TextProviderOptions
 class TextProvider
 {
 public:
-	TextProvider(const std::string& file_path, const TextProviderOptions& options);
+	TextProvider(const std::string& file_path, const TextProviderOptions& options = TextProviderOptions());
 	TextProvider(TextProvider&& provider);
 	~TextProvider();
 
