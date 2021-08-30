@@ -7,12 +7,10 @@
 #include <future>
 #include <functional>
 #include <condition_variable>
-#include <iostream>
 
 #include "task_queue.hpp"
 #include "worker_pool.hpp"
 #include "activity.hpp"
-#include "composite_activity.hpp"
 
 namespace activity
 {

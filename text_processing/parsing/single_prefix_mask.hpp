@@ -2,7 +2,6 @@
 
 #include <string>
 #include <vector>
-#include <iostream>
 
 
 namespace text_processing
@@ -17,7 +16,6 @@ public:
 	{
 		struct Node
 		{
-			size_t index{0};
 			char value{'\0'};
 			const Node* parent{nullptr};
 			const Node* suffix_link{nullptr};
@@ -29,7 +27,7 @@ public:
 	SinglePrefixMask(const std::string& mask_value);
 	SinglePrefixMask(const SinglePrefixMask&) = delete;
 	SinglePrefixMask& operator=(const SinglePrefixMask&) = delete;
-	SinglePrefixMask(SinglePrefixMask&&) = default;
+	SinglePrefixMask(SinglePrefixMask&&) = delete;
 
 private:
 	friend class MaskView;

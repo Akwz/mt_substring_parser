@@ -25,7 +25,7 @@ public:
 private:
 	const std::string mSourceFilePath;
 	std::ifstream mIStream;
-	TextProviderOptions mOptions;
+	const TextProviderOptions mOptions;
 };
 
 } // namespace text_processing

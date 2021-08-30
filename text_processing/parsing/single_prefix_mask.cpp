@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 #include <algorithm>
 
 #include "single_prefix_mask.hpp"
@@ -14,18 +13,16 @@ constexpr size_t MAX_MASK_SIZE{100};
 
 SinglePrefixMask::SinglePrefixMask(const std::string& source)
 {
-	assert(!source.empty());
+	assert(!source.empty() && source.size() <= MAX_MASK_SIZE);
 	mStorage.mNodes.reserve(source.size() + 1);
 	mStorage.mNodes.emplace_back(PrefixList::Node());
-	assert(source.size() <= MAX_MASK_SIZE);
 	for(size_t i = 1; i <= source.size(); ++i)
 	{
 		assert(!std::any_of(std::begin(FORBIDDEN_LIST), std::end(FORBIDDEN_LIST), [symbol = source[i - 1]](char forbidden){return forbidden == symbol;}));
 		auto* parent = &(mStorage.mNodes.back());
 		mStorage.mNodes.emplace_back(
 			PrefixList::Node{
-				i,
-				source[i-1],
+				source[i - 1],
 				parent,
 				BuildSuffixLink(parent, source[i - 1]),
 				nullptr
@@ -93,7 +90,7 @@ void MaskView::Reset()
 void MaskView::ResetToSuffixValue(char symbol)
 {
 	assert(mPosition);
-	const auto* link = mPosition->parent ? mPosition->parent->suffix_link : nullptr;
+	const SinglePrefixMask::PrefixList::Node* link = mPosition->parent ? mPosition->parent->suffix_link : nullptr;
 
 	while(true)
 	{

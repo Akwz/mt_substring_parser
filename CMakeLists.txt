@@ -10,8 +10,6 @@ project(substring_parser VERSION 1.0)
 
 set(SOURCES
 data/shared_storage.cpp
-data/result_container.cpp
-activity/activity.cpp
 activity/activity_manager.cpp
 activity/workers/worker_pool.cpp
 activity/workers/task_queue.cpp

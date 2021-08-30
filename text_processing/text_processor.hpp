@@ -2,12 +2,9 @@
 
 #include <memory>
 #include <string>
-#include <tuple>
 
 #include "shared_storage.hpp"
 #include "text_storage.hpp"
-#include "text_provider.hpp"
-#include "text_data_view.hpp"
 #include "activity_manager.hpp"
 #include "text_parser.hpp"
 #include "single_prefix_mask.hpp"
@@ -59,8 +56,6 @@ public:
 	}
 
 private:
-	ParsingResult ProcessFrame(const TextDataView& frame);
-
 	data::SharedStorage<TextStorage, ProviderType, std::string>  mDataStorage;
 	std::shared_ptr<activity::ActivityManager> mActivityManager;
 	SinglePrefixMask mMask;
