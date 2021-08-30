@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 
 namespace text_processing
@@ -17,7 +18,7 @@ public:
 		struct Node
 		{
 			size_t index{0};
-			char value;
+			char value{'\0'};
 			const Node* parent{nullptr};
 			const Node* suffix_link{nullptr};
 			const Node* child{nullptr};
@@ -34,7 +35,7 @@ private:
 	friend class MaskView;
 
 	static bool CompareSymbols(char symbol, char mask_sybmol);
-	static const PrefixList::Node* BuildSuffixLink(PrefixList::Node* parent, char symbo);
+	static const PrefixList::Node* BuildSuffixLink(const PrefixList::Node* parent, char symbo);
 	
 	PrefixList mStorage;
 };
@@ -42,17 +43,17 @@ private:
 class MaskView
 {
 public:
-	MaskView(const SinglePrefixMask& mask);
-	MaskView(const MaskView&) = default;
+	MaskView(SinglePrefixMask const * const mask);
+	MaskView(const MaskView& other) : mMask(other.mMask) {Reset();}
 
-	size_t Size() const {return std::max<size_t>(mMask.mStorage.mNodes.size() - 1, 0);}
+	size_t Size() const {return std::max<size_t>(mMask->mStorage.mNodes.size() - 1, 0);}
 	bool Compare(char symbol);
 	bool IsReachedEnd() const;
 	void Reset();
 private:
-	void ResetToSuffixValue();
+	void ResetToSuffixValue(char symbol);
 
-	const SinglePrefixMask& mMask;
+	SinglePrefixMask const * const mMask;
 	const SinglePrefixMask::PrefixList::Node* mPosition;
 };
 

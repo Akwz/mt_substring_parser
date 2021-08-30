@@ -30,7 +30,7 @@ public:
 	{
 		const size_t activity_task_count = mActivityManager->SuitableTaskCount();
 		activity::Activity<ParsingResult> text_parsing_activity;
-		MaskView mask{mMask};
+		MaskView mask{&mMask};
 		text_parsing_activity.result.SetLayering(mask.Size());
 		const auto parsing_unit = [&storage = mDataStorage, mask]() mutable -> ParsingResult
 		{
@@ -50,7 +50,7 @@ public:
 			return result;
 		};
 
-		for(size_t i = 0; i < activity_task_count; ++i)
+		for(size_t i = 0; i < 1; ++i)
 		{
 			text_parsing_activity.tasks.push_back(parsing_unit);
 		}

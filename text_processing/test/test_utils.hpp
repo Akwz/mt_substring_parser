@@ -18,7 +18,11 @@ public:
 	using IteratorType = std::string::const_iterator;
 
 	MockDataProvider(const Options& options, std::string&& buffer);
-	MockDataProvider(MockDataProvider&& provider) = default;
+	MockDataProvider(MockDataProvider&& provider)
+		: mOptions(std::move(provider.mOptions))
+		, mBuffer(std::move(provider.mBuffer))
+		, mCurrentPosition(mBuffer.cbegin())
+	{}
 	~MockDataProvider() = default;
 
 	std::string Fetch();
