@@ -212,6 +212,13 @@ INSTANTIATE_TEST_SUITE_P(
 			"every",
 			"1 2 every\n" \
 			"1 9 every\n"
+		),
+		ParamsType(
+			"TextWithGhostLayering_WhenExistsMultipleLinesOnFetchingBound_WithSizeWhichIsLowerThanMaskSize",
+			MockDataProvider::Options{34},
+			"text with multiple lines\none\ntwo\nthree\nplace holder very big mask with...",
+			"very big mask w?th...",
+			"5 13 very big mask with...\n"
 		)
 	)
 );

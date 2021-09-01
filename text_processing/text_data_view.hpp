@@ -12,6 +12,8 @@ public:
 	
 	TextDataView();
 	explicit TextDataView(const IteratorType& begin, const IteratorType& end);
+	TextDataView(const TextDataView&) = default;
+	TextDataView& operator=(const TextDataView&) = default;
 	bool Empty() const;
 	size_t Size() const;
 	IteratorType Begin() const;
